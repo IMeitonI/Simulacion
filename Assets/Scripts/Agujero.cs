@@ -4,83 +4,50 @@ using UnityEngine;
 
 public class Agujero : MonoBehaviour
 {
-    public float limitY = 4.5f, limitX = 4.5f, minX = -4.5f, minY = -4.5f;
-    [SerializeField] float speedLimit = 5;
+    [Header("Physics related")]
     [SerializeField] MyVector2 myPosition;
-    public MyVector2 velocity, peso, friccion,direccion, fGravitacional;
-    [SerializeField] float myMass = 2, gravedad = -9.8f, c, otherMass=10,variable;
-    [SerializeField] MyVector2 acceleration, force, wind;
-    [Range(0, 1)] [SerializeField] float boundness, u;
+    [SerializeField] MyVector2 velocity;
+    [SerializeField] MyVector2 acceleration;
+
+    [Header("Gravitational Force")]
+    [SerializeField] float myMass = 2;
+    [SerializeField] float otherMass = 10;
     [SerializeField] Transform otherObj;
-    [SerializeField] bool boxLimits;
+    MyVector2 fGravitacional;
 
     private void Start() {
         myPosition = myPosition.convert(transform.position);
     }
 
     private void Update() {
-        transform.position = new Vector3(myPosition.x, myPosition.y);
-        myPosition.DrawVector(Color.red);
+        // Draw vectors
         acceleration.DrawVector(myPosition, Color.blue);
         velocity.DrawVector(myPosition, Color.green);
+        myPosition.DrawVector(Color.red);
+
+        // Calculate and update position
         UpdatePosition();
+        transform.position = new Vector3(myPosition.x, myPosition.y);
     }
+
     public void UpdatePosition() {
-        myPosition = new MyVector2(transform.position.x, transform.position.y);
-        //sumatoria de fuerzas
-        //peso.y = myMass * gravedad;
-        direccion = direccion.convert(otherObj.position) - direccion.convert(transform.position);
-        float r = direccion.sacarMagnitud();
-        variable = (otherMass * myMass); // (Mathf.Pow(r, 2));
-        direccion = direccion.normalizar();
-        if (r > 1) fGravitacional = direccion * variable;
-        else acceleration = new MyVector2(0, 0);
-        //friccion = velocity.normalizar() * -u * 3;
-        acceleration = ApplyForce(fGravitacional+ force, myMass);
-        fGravitacional.DrawVector(myPosition, Color.black);
+        // Calculate the distance and direction for the gravity force
+        MyVector2 gravityDirection = MyVector2.FromUnityVector(otherObj.position - transform.position);
+        float distance = gravityDirection.sacarMagnitud();
+        gravityDirection = gravityDirection.normalizar();
+
+        // Calculate the gravity force
+        if (distance > 0.1) fGravitacional = gravityDirection * (otherMass * myMass / distance * distance);
+        else acceleration = gravityDirection;
+
+        // Calculate new acceleration, velocity and position
+        acceleration = ApplyForce(fGravitacional, myMass);
         velocity = velocity + acceleration * Time.deltaTime;
         myPosition = myPosition + velocity * Time.deltaTime;
-      
-
-        if (velocity.sacarMagnitud() > speedLimit) {
-            velocity = velocity.normalizar();
-            velocity = velocity.multiplicar(speedLimit);
-        }
-
-        if (myPosition.x >= limitX && boxLimits) {
-            velocity.x = -velocity.x;
-            myPosition.x = limitX;
-            loseVel();
-        } else if (myPosition.x <= minX && boxLimits) {
-            velocity.x = -velocity.x;
-            myPosition.x = minX;
-            loseVel();
-        }
-        if (myPosition.y <= minY && boxLimits) {
-            velocity.y = -velocity.y;
-            myPosition.y = minY;
-            loseVel();
-
-        } else if (myPosition.y >= limitY && boxLimits) {
-            velocity.y = -velocity.y;
-            myPosition.y = limitY;
-            loseVel();
-        }
-
-        void loseVel() {
-            velocity = velocity * boundness;
-        }
-
-        MyVector2 ApplyForce(MyVector2 force, float mass) {
-            return force * (1 / mass);
-        }
-
-
-
     }
 
-   
-    
-
-    
+    MyVector2 ApplyForce(MyVector2 force, float mass)
+    {
+        return force * (1 / mass);
+    }
 }

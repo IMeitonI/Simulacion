@@ -154,47 +154,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 392022df6b9aae24496bd8fe71d25f62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  limitY: 4.5
-  limitX: 4.5
-  minX: -4.5
-  minY: -4.5
-  speedLimit: 2.71
   myPosition:
     y: 0
     x: 0
   velocity:
     y: 6.18
     x: 0
-  peso:
-    y: 0
-    x: 0
-  friccion:
-    y: 0
-    x: 0
-  direccion:
-    y: 0
-    x: 0
-  fGravitacional:
-    y: 0
-    x: 0
-  myMass: 30
-  gravedad: -9.8
-  c: 0
-  otherMass: 100
-  variable: 0
   acceleration:
     y: 0
     x: 0
-  force:
-    y: 0
-    x: 0
-  wind:
-    y: 0
-    x: 0
-  boundness: 0
-  u: 0
+  myMass: 20
+  otherMass: 10
   otherObj: {fileID: 1772226936}
-  boxLimits: 0
 --- !u!96 &1253975401
 TrailRenderer:
   serializedVersion: 2
@@ -389,47 +360,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 392022df6b9aae24496bd8fe71d25f62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  limitY: 4.5
-  limitX: 4.5
-  minX: -4.5
-  minY: -4.5
-  speedLimit: 20
   myPosition:
     y: 0
     x: 0
   velocity:
     y: 0
     x: 0
-  peso:
-    y: 0
-    x: 0
-  friccion:
-    y: 0
-    x: 0
-  direccion:
-    y: 0
-    x: 0
-  fGravitacional:
-    y: 0
-    x: 0
-  myMass: 0.2
-  gravedad: -9.8
-  c: 0
-  otherMass: 1000
-  variable: 0
   acceleration:
     y: 0
     x: 0
-  force:
-    y: 0
-    x: 0
-  wind:
-    y: 0
-    x: 0
-  boundness: 0
-  u: 0
+  myMass: 10
+  otherMass: 20
   otherObj: {fileID: 1772226936}
-  boxLimits: 0
 --- !u!96 &1599296855
 TrailRenderer:
   serializedVersion: 2
@@ -701,7 +643,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1772226935}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 2.51, z: 0}
+  m_LocalPosition: {x: -0.45, y: 2.68, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}

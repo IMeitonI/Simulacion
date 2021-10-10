@@ -12,7 +12,10 @@ public class Physics : MonoBehaviour {
     [Range(0, 1)] [SerializeField] float boundness, u;
     [SerializeField] bool boxLimits;
 
-   
+    private void Start()
+    {
+        myPosition = myPosition.convert(transform.position);
+    }
     private void Update() {
         transform.position = new Vector3(myPosition.x, myPosition.y);
         myPosition.DrawVector(Color.red);
@@ -67,14 +70,5 @@ public class Physics : MonoBehaviour {
         MyVector2 ApplyForce(MyVector2 force, float mass) {
             return force*(1/mass);
         }
-
-
-
     }
-   
-    
-
-
-
-
 }
