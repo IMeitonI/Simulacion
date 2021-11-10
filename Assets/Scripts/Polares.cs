@@ -29,8 +29,12 @@ public class Polares : MonoBehaviour
     }
 
     void limites() {
-        if(radial >= 4.5f || radial <=-4.5f) {
-            velRad = -velRad;
+        if(Mathf.Abs(radial) > 4.5f){
+            if (Mathf.Abs(aceRad)> 0) {
+                aceRad = -aceRad;
+            } else {
+                velRad = -velRad;
+            }
             
         }
     }
